@@ -20,7 +20,7 @@ class ContactForm extends React.Component {
     }
   }
 
-  handleSubmit = async(event) => {
+  handleSubmit = (event) => {
     event.preventDefault();
     let contactList = JSON.parse(localStorage.getItem("contactList"));
 
@@ -55,7 +55,7 @@ class ContactForm extends React.Component {
         phoneNumber: this.state.phoneNumber
       });
     }
-    await localStorage.setItem("contactList", JSON.stringify(contactList));
+    localStorage.setItem("contactList", JSON.stringify(contactList));
     this.props.navigate("/");
     // this.setState({ name: "", email: "", phoneNumber: "",update:false});
   };
