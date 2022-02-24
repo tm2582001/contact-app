@@ -18,6 +18,15 @@ class ContactPreview extends React.Component {
   componentDidMount() {
     let contactList = JSON.parse(localStorage.getItem("contactList"));
     if (contactList) {
+      contactList = contactList.sort((a, b) => {
+        if (a.name < b.name) {
+          return -1;
+        }
+        if (a.name > b.name) {
+          return 1;
+        }
+        return 0;
+      });
       this.setState({ contactList: contactList });
     }
   }
@@ -90,7 +99,6 @@ class ContactPreview extends React.Component {
           filterContact.map(({ ...otherContactProps }, index) => (
             <ContactData
               key={index}
-              id={index}
               handleClick={this.openDeletePopup}
               {...otherContactProps}
             />

@@ -4,27 +4,60 @@ import FormInput from "../form-input/form-input.component";
 import "./contact-form.styles.css";
 
 class ContactForm extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      name: "",
-      email: "",
-      phoneNumber: "",
-    };
+  constructor(props) {
+    super(props);
+
+    if(props.state){
+      this.state= props.state;
+    }else{
+
+      this.state = {
+        name: "",
+        email: "",
+        phoneNumber: "",
+        update:false
+      };
+    }
   }
 
-  handleSubmit = (event) => {
+  handleSubmit = async(event) => {
     event.preventDefault();
-    let constactList = JSON.parse(localStorage.getItem("contactList"));
+    let contactList = JSON.parse(localStorage.getItem("contactList"));
 
-    if (!constactList) {
-      constactList = [];
+    // update page
+    if(this.state.update){
+      let {state} = this.props;
+
+      contactList.map((contact, index) => {
+        if (
+          contact.name === state.name &&
+          contact.email === state.email &&
+          contact.phoneNumber === state.phoneNumber
+        ) {
+          contactList.splice(index, 1,{
+            name: this.state.name,
+            email:this.state.email,
+            phoneNumber: this.state.phoneNumber
+          });
+        }
+
+        return "successful";
+      });
+      // new contact page 
+    }else{
+
+      if (!contactList) {
+        contactList = [];
+      }
+      contactList.push({
+        name: this.state.name,
+        email:this.state.email,
+        phoneNumber: this.state.phoneNumber
+      });
     }
-    constactList.push(this.state);
-
-    localStorage.setItem("contactList", JSON.stringify(constactList));
-
-    this.setState({ name: "", email: "", phoneNumber: "" });
+    await localStorage.setItem("contactList", JSON.stringify(contactList));
+    this.props.navigate("/");
+    // this.setState({ name: "", email: "", phoneNumber: "",update:false});
   };
 
   handleChange = (event) => {
@@ -59,7 +92,7 @@ class ContactForm extends React.Component {
             value={this.state.phoneNumber}
             required
           />
-          <CustomButton type="submit">Add Contact</CustomButton>
+          <CustomButton type="submit">{this.state.update?"update":"Add Contact"}</CustomButton>
         </form>
       </div>
     );
