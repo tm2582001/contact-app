@@ -1,48 +1,93 @@
 import React from "react";
 import ContactData from "../contact-data/contact-data.component";
 import Popup from "../popup/popup.component";
+import SearchBox from "../search-box/search-box.component";
 import "./contact-preview.styles.css";
 
 class ContactPreview extends React.Component {
   constructor() {
     super();
-    this.state = { contactList: [], displayPopup: false, deleteRequest: null };
+    this.state = {
+      contactList: [],
+      displayPopup: false,
+      deleteRequest: { name: "", email: "", phoneNumber: "" },
+      searchField: "",
+    };
   }
 
   componentDidMount() {
     let contactList = JSON.parse(localStorage.getItem("contactList"));
-    this.setState({ contactList: contactList }, () => {
-      console.log(this.state.contactList);
+    this.setState({ contactList: contactList });
+  }
+
+  deleteContact = () => {
+    let { contactList, deleteRequest } = this.state;
+
+    contactList.map((contact, index) => {
+      if (
+        contact.name === deleteRequest.name &&
+        contact.email === deleteRequest.email &&
+        contact.phoneNumber === deleteRequest.phoneNumber
+      ) {
+        contactList.splice(index, 1);
+      }
+      return "successful";
     });
-  }
 
-  deleteContact = ()=>{
-    let {contactList,deleteRequest} = this.state;
-    contactList.splice(deleteRequest,1);
-    this.setState({contactList:contactList, displayPopup:false,deleteRequest:null});
-    localStorage.setItem("contactList",JSON.stringify(contactList));
-  }
+    this.setState({
+      contactList: contactList,
+      displayPopup: false,
+      deleteRequest: { name: "", email: "", phoneNumber: "" },
+    });
+    localStorage.setItem("contactList", JSON.stringify(contactList));
+  };
 
-  openDeletePopup = (contactIndex)=>{
-    console.log(contactIndex);
-    this.setState({displayPopup:true,deleteRequest:contactIndex},()=>{
-        console.log(this.state);
-    })
-  }
+  openDeletePopup = (name, email, phoneNumber) => {
+    this.setState(
+      {
+        displayPopup: true,
+        deleteRequest: { name: name, email: email, phoneNumber: phoneNumber },
+      }
+    );
+  };
 
-  closeDeletePopup = ()=>{
-    this.setState({displayPopup:false, deleteRequest: null});
-  }
+  closeDeletePopup = () => {
+    this.setState({
+      displayPopup: false,
+      deleteRequest: { name: "", email: "", phoneNumber: "" },
+    });
+  };
+
+  handleChange = (e) => {
+    this.setState({ searchField: e.target.value });
+  };
 
   render() {
-    let { contactList,displayPopup} = this.state;
+    let { contactList, displayPopup, searchField } = this.state;
+    let filterContact = contactList.filter(
+      (contact) =>
+        contact.name.toLowerCase().includes(searchField.toLowerCase()) ||
+        contact.phoneNumber.includes(searchField)
+    );
     return (
       <div>
-      {
-          displayPopup?<Popup yesClickEvent = {this.deleteContact} noClickEvent= {this.closeDeletePopup}/>:null
-      }
-        {contactList.map(({ ...otherContactProps }, index) => (
-          <ContactData key={index} id={index} handleClick = {this.openDeletePopup} {...otherContactProps} />
+        <SearchBox
+          placeHolder="Search Contact"
+          handleChange={this.handleChange}
+        />
+        {displayPopup ? (
+          <Popup
+            yesClickEvent={this.deleteContact}
+            noClickEvent={this.closeDeletePopup}
+          />
+        ) : null}
+        {filterContact.map(({ ...otherContactProps }, index) => (
+          <ContactData
+            key={index}
+            id={index}
+            handleClick={this.openDeletePopup}
+            {...otherContactProps}
+          />
         ))}
       </div>
     );
