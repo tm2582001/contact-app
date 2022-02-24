@@ -1,0 +1,21 @@
+.form-input{
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+label{
+    font-size: 16px;
+    font-weight: 600;
+}
+
+input{
+    width: 225px;
+    height: 15px;
+    border-radius: 50px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    font-weight: 500;
+}

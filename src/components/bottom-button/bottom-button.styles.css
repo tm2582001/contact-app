@@ -1,0 +1,29 @@
+.bottom-button{
+    background: hsla(140, 90%, 45%,0.9);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    position: fixed;
+    right: 20px;
+    bottom: 30px;
+    -webkit-backdrop-filter: blur(30px);
+    backdrop-filter: blur(30px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-touch-callout:none;
+    -webkit-user-select:none;
+    -khtml-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
+}
+
+.bottom-button:hover{
+    cursor: pointer;
+}
+.plus-icon{
+    width: 30px;
+    fill: white;
+}

@@ -1,3 +1,38 @@
+.contact-card{
+    background: #fff;
+    border-radius: 28px;
+    border: 1px solid hsla(0,0%,51.4%,.16);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    justify-items: center;
+    width: 380px;
+    height: 120px;
+}
+
+.user-icon-div{
+    border: 1px solid hsla(0,0%,51.4%,.16);
+    border-radius: 100%;
+    padding: 20px;
+}
+
+.user-icon{
+    width: 40px;
+}
+
+.details{
+    margin: 15px;
+}
+
+.icon-div{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-evenly;
+}
+
 .icon{
     width: 20px;
+    cursor: pointer;
 }
+

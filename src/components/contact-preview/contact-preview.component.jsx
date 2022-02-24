@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import BottomButton from "../bottom-button/bottom-button.component";
 import ContactData from "../contact-data/contact-data.component";
 import Popup from "../popup/popup.component";
 import SearchBox from "../search-box/search-box.component";
@@ -60,7 +62,10 @@ class ContactPreview extends React.Component {
     });
   };
 
-  closeDeletePopup = () => {
+  closeDeletePopup = (e) => {
+    if(e.target.className === "confirmation-box" || e.target.className === "confirmation-text"){
+      return 0;
+    }
     this.setState({
       displayPopup: false,
       deleteRequest: { name: "", email: "", phoneNumber: "" },
@@ -84,11 +89,12 @@ class ContactPreview extends React.Component {
     }
 
     return (
-      <div>
+      <div className="contact-preview">
         <SearchBox
           placeHolder="Search Contact"
           handleChange={this.handleChange}
         />
+        <div className="contact-grid">
         {displayPopup ? (
           <Popup
             yesClickEvent={this.deleteContact}
@@ -104,8 +110,12 @@ class ContactPreview extends React.Component {
             />
           ))
         ) : (
-          <h1>No contact</h1>
+          <h1 className="no-contact">No contact</h1>
         )}
+        </div>
+        <Link to="/addcontact">
+        <BottomButton />
+        </Link>
       </div>
     );
   }

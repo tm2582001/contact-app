@@ -67,12 +67,12 @@ class ContactForm extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="form-div">
         <form onSubmit={this.handleSubmit}>
           <FormInput
             name="name"
             type="text"
-            label="name"
+            label="Name:"
             handleChange={this.handleChange}
             value={this.state.name}
             required
@@ -80,14 +80,14 @@ class ContactForm extends React.Component {
           <FormInput
             name="email"
             type="email"
-            label="email"
+            label="email:"
             handleChange={this.handleChange}
             value={this.state.email}
           />
           <FormInput
             name="phoneNumber"
             type="tel"
-            label="Phone Number"
+            label="Phone Number:"
             handleChange={this.handleChange}
             value={this.state.phoneNumber}
             required

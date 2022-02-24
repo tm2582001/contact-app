@@ -9,7 +9,7 @@ const UpdateContact = ()=>{
     if(!state){
         return <Navigate to="/"/>
     }
-    return(<div>
+    return(<div className="update-contact">
         <ContactForm state={state}  navigate={navigate}/>
     </div>);
 };

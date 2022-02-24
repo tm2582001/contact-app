@@ -3,7 +3,7 @@ import ContactPreview from "../../components/contact-preview/contact-preview.com
 import './display-contact.styles.css';
 
 const DisplayContact = ()=>(
-    <div>
+    <div className="display-contact">
         <ContactPreview />
     </div>
 );

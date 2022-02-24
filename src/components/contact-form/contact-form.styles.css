@@ -1,0 +1,11 @@
+.form-div{
+    width: 400px;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: #fff;
+    border-radius: 28px;
+    border: 1px solid hsla(0,0%,51.4%,.16);
+}

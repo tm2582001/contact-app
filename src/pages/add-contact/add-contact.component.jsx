@@ -4,7 +4,7 @@ import ContactForm from '../../components/contact-form/contact-form.component';
 import { useNavigate } from 'react-router-dom';
 
 const AddContact = ()=>(
-    <div>
+    <div className='add-contact'>
         <ContactForm navigate={useNavigate()}/>
     </div>
 );

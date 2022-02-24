@@ -1,0 +1,21 @@
+button {
+  background-color: transparent;
+  border: 1px solid #006ddb;
+  color: #006ddb;
+  padding: 10px 12px;
+  border-radius: 7px;
+  transition: 0.3s;
+  margin: 10px;
+}
+
+button:hover {
+  background: #006ddb;
+  color: #fff;
+  cursor: pointer;
+}
+
+button:focus {
+  box-shadow: 0px 0px 0px 5px rgba(20, 87, 244, 0.37),
+    0px 0px 0px 10px rgba(20, 87, 244, 0.38);
+  outline: none;
+}

@@ -3,11 +3,11 @@ import CustomButton from "../custom-button/custom-button.component";
 import './popup.styles.css';
 
 const Popup = ({yesClickEvent,noClickEvent})=>(
-  <div>
-      <div>
-          <h5>Are you sure?</h5>
-          <CustomButton onClick={noClickEvent}>No</CustomButton>
-          <CustomButton onClick={yesClickEvent}>Yes</CustomButton>
+  <div className="popup-box" onClick={noClickEvent}>
+      <div className="confirmation-box">
+          <h5 className="confirmation-text">Are you sure?</h5>
+          <CustomButton className="confirmation-button" onClick={noClickEvent}>No</CustomButton>
+          <CustomButton className="confirmation-button" onClick={yesClickEvent}>Yes</CustomButton>
       </div>
   </div>
 );
