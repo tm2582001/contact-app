@@ -17,7 +17,9 @@ class ContactPreview extends React.Component {
 
   componentDidMount() {
     let contactList = JSON.parse(localStorage.getItem("contactList"));
-    this.setState({ contactList: contactList });
+    if (contactList) {
+      this.setState({ contactList: contactList });
+    }
   }
 
   deleteContact = () => {
@@ -43,12 +45,10 @@ class ContactPreview extends React.Component {
   };
 
   openDeletePopup = (name, email, phoneNumber) => {
-    this.setState(
-      {
-        displayPopup: true,
-        deleteRequest: { name: name, email: email, phoneNumber: phoneNumber },
-      }
-    );
+    this.setState({
+      displayPopup: true,
+      deleteRequest: { name: name, email: email, phoneNumber: phoneNumber },
+    });
   };
 
   closeDeletePopup = () => {
@@ -64,11 +64,16 @@ class ContactPreview extends React.Component {
 
   render() {
     let { contactList, displayPopup, searchField } = this.state;
-    let filterContact = contactList.filter(
-      (contact) =>
-        contact.name.toLowerCase().includes(searchField.toLowerCase()) ||
-        contact.phoneNumber.includes(searchField)
-    );
+    let filterContact;
+
+    if (contactList.length >= 1) {
+      filterContact = contactList.filter(
+        (contact) =>
+          contact.name.toLowerCase().includes(searchField.toLowerCase()) ||
+          contact.phoneNumber.includes(searchField)
+      );
+    }
+
     return (
       <div>
         <SearchBox
@@ -81,14 +86,18 @@ class ContactPreview extends React.Component {
             noClickEvent={this.closeDeletePopup}
           />
         ) : null}
-        {filterContact.map(({ ...otherContactProps }, index) => (
-          <ContactData
-            key={index}
-            id={index}
-            handleClick={this.openDeletePopup}
-            {...otherContactProps}
-          />
-        ))}
+        {filterContact ? (
+          filterContact.map(({ ...otherContactProps }, index) => (
+            <ContactData
+              key={index}
+              id={index}
+              handleClick={this.openDeletePopup}
+              {...otherContactProps}
+            />
+          ))
+        ) : (
+          <h1>No contact</h1>
+        )}
       </div>
     );
   }
