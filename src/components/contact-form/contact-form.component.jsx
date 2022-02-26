@@ -83,6 +83,7 @@ class ContactForm extends React.Component {
             label="email:"
             handleChange={this.handleChange}
             value={this.state.email}
+            required
           />
           <FormInput
             name="phoneNumber"
